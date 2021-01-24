@@ -18,8 +18,8 @@ public class MainPanel extends JPanel {
 	
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
-	private JLabel imageHolder = new JLabel();
 	private JPanel questionPanel = new JPanel();
+	private JLabel imageHolder = new JLabel();
 	
 	private JLabel question = new JLabel();
 	private JLabel result = new JLabel();
@@ -29,7 +29,7 @@ public class MainPanel extends JPanel {
 	// creating two final variables for the background colors when the user checks his/hers answers
 	private final Color success = new Color(0xB8, 0xF2, 0x7E); // green
 	private final Color error = new Color(0xE8, 0x8B, 0x8B); // red
-	private final int amount = 15; // the number of the questions
+	private final int amount = 25; // the number of the questions
 	private ArrayList<Integer> questionOrder = new ArrayList<>();
 	private int curretnQuestion = 0;
 	
@@ -75,6 +75,7 @@ public class MainPanel extends JPanel {
 		sc.nextLine(); // skipping the fourth line
 		
 		question.setText(ques);
+		// added additional panel for better design
 		rightPanel.add(questionPanel);
 		
 		int i = 1;
@@ -97,11 +98,16 @@ public class MainPanel extends JPanel {
 	}
 	
 	private void arrayFilling() {
+		/*
+		 * made ArrayList of type Integer for the order of the questions
+		 * at first it is filled: 1,2,3,4,....
+		 */
 		questionOrder.clear();
 		for (int i = 0; i < amount; i++) {
 			questionOrder.add(i + 1);
 		}
 		
+		// then the numbers are randomly shuffled
 		Collections.shuffle(questionOrder);
 		curretnQuestion = 0;
 	}
@@ -110,8 +116,8 @@ public class MainPanel extends JPanel {
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		rightPanel.setAlignmentX(LEFT_ALIGNMENT);
 		
-		imageHolder.setHorizontalAlignment(/*Label.CENTER*/0);
-		imageHolder.setVerticalAlignment(/*Label.CENTER*/0);
+		imageHolder.setHorizontalAlignment(0); // 0 = CENTER
+		imageHolder.setVerticalAlignment(0);
 		leftPanel.add(imageHolder);
 		
 		this.add(leftPanel);
@@ -135,6 +141,7 @@ public class MainPanel extends JPanel {
 	}
 	
 	public void generateNextQuestion () {
+		// if the current question number is 25 or above the ArrayList must be filled again
 		if (curretnQuestion >= amount) {
 			arrayFilling();
 		}
